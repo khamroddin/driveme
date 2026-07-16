@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Locations</h2>
+
+  <%= link_to "New Location",
+      new_admin_location_path,
+      class: "btn btn-primary" %>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Country</th>
+      <th>Status</th>
+      <th width="170">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= location.name %></td>
+        <td><%= location.code %></td>
+        <td><%= location.city %></td>
+        <td><%= location.state %></td>
+        <td><%= location.country %></td>
+
+        <td>
+          <% if location.active? %>
+            <span class="badge bg-success">Active</span>
+          <% else %>
+            <span class="badge bg-danger">Inactive</span>
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to "Edit",
+              edit_admin_location_path(location),
+              class: "btn btn-warning btn-sm" %>
+
+          <%= link_to "Delete",
+              admin_location_path(location),
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              },
+              class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

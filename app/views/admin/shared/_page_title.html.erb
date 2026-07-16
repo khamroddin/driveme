@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="mb-0"><%= title %></h2>
+
+    <% if local_assigns[:subtitle] %>
+      <small class="text-muted"><%= subtitle %></small>
+    <% end %>
+  </div>
+
+  <% if local_assigns[:new_path] %>
+    <%= link_to button_text,
+                new_path,
+                class: "btn btn-primary" %>
+  <% end %>
+</div>

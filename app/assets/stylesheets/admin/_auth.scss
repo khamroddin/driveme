@@ -1,0 +1,19 @@
+.auth-layout {
+  background: var(--sidebar-bg);
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 420px;
+
+  background: #fff;
+  border-radius: 12px;
+
+  padding: 40px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}

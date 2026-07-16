@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DriveMe Admin</title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <%= render "admin/shared/sidebar" %>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+
+    <!-- Top Navigation -->
+    <div class="top-navbar">
+      <%= render "admin/shared/navbar" %>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+
+      <%= render "shared/flash" %>
+
+      <%= yield %>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

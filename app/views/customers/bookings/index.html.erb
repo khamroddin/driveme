@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1">My Bookings</h2>
+    <p class="text-muted mb-0">
+      View your current and previous bookings.
+    </p>
+  </div>
+</div>
+
+<% if @bookings.any? %>
+
+  <div class="card shadow-sm border-0">
+    <div class="table-responsive">
+
+      <table class="table table-hover align-middle mb-0">
+
+        <thead class="table-light">
+          <tr>
+            <th>Booking No.</th>
+            <th>Vehicle</th>
+            <th>Pickup</th>
+            <th>Return</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% @bookings.each do |booking| %>
+
+            <tr>
+
+              <td>
+                <strong>
+                  <%= booking.booking_number.presence || "Pending" %>
+                </strong>
+              </td>
+
+              <td>
+                <%= booking.vehicle.vehicle_brand.name %>
+                <%= booking.vehicle.model %>
+              </td>
+
+              <td>
+                <%= booking.pickup_date %>
+              </td>
+
+              <td>
+                <%= booking.return_date %>
+              </td>
+
+              <td>
+                ₹<%= number_with_precision(booking.total_amount || 0, precision: 0) %>
+              </td>
+
+              <td>
+
+                <% badge =
+                  case booking.status
+                  when "pending" then "warning"
+                  when "confirmed" then "success"
+                  when "ongoing" then "primary"
+                  when "completed" then "secondary"
+                  when "cancelled" then "danger"
+                  else "light"
+                  end %>
+
+                <span class="badge bg-<%= badge %>">
+                  <%= booking.status.to_s.titleize %>
+                </span>
+
+              </td>
+
+              <td>
+                <%= link_to "View",
+                      customers_booking_path(booking),
+                      class: "btn btn-sm btn-outline-primary" %>
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+<% else %>
+
+  <div class="alert alert-info">
+
+    <h5>No bookings yet</h5>
+
+    <p class="mb-3">
+      You haven't booked any vehicles.
+    </p>
+
+    <%= link_to "Browse Vehicles",
+          customers_vehicles_path,
+          class: "btn btn-primary" %>
+
+  </div>
+
+<% end %>

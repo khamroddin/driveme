@@ -1,0 +1,198 @@
+<div class="row">
+
+  <div class="col-lg-8">
+
+    <div class="card shadow-sm border-0">
+
+      <div class="card-header bg-white">
+        <h4 class="mb-0">Book Vehicle</h4>
+      </div>
+
+      <div class="card-body">
+
+        <% if @booking.errors.any? %>
+          <div class="alert alert-danger">
+            <h6>
+              <%= pluralize(@booking.errors.count, "error") %> prohibited this booking:
+            </h6>
+
+            <ul class="mb-0">
+              <% @booking.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form_with model: [:customers, @booking], local: true do |f| %>
+
+          <%= f.hidden_field :vehicle_id, value: @vehicle.id %>
+
+          <div class="mb-3">
+            <%= f.label :vehicle, class: "form-label" %>
+
+            <input type="text"
+                   class="form-control"
+                   value="<%= "#{@vehicle.vehicle_brand.name} #{@vehicle.model}" %>"
+                   readonly>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :pickup_location_id, "Pickup Location" %>
+
+              <%= f.collection_select :pickup_location_id,
+                    @locations,
+                    :id,
+                    :name,
+                    { prompt: "Select Pickup Location" },
+                    {
+                      class: "form-select #{'is-invalid' if @booking.errors[:pickup_location].any?}",
+                      required: true
+                    } %>
+
+              <% @booking.errors.full_messages_for(:pickup_location).each do |msg| %>
+                <div class="invalid-feedback d-block">
+                  <%= msg %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :drop_location_id, "Drop Location" %>
+
+              <%= f.collection_select :drop_location_id,
+                    @locations,
+                    :id,
+                    :name,
+                    { prompt: "Select Drop Location" },
+                    {
+                      class: "form-select #{'is-invalid' if @booking.errors[:drop_location].any?}",
+                      required: true
+                    } %>
+
+              <% @booking.errors.full_messages_for(:drop_location).each do |msg| %>
+                <div class="invalid-feedback d-block">
+                  <%= msg %>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :pickup_date %>
+
+              <%= f.date_field :pickup_date,
+                    class: "form-control #{'is-invalid' if @booking.errors[:pickup_date].any?}",
+                    required: true %>
+
+              <% @booking.errors.full_messages_for(:pickup_date).each do |msg| %>
+                <div class="invalid-feedback d-block">
+                  <%= msg %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :pickup_time %>
+
+              <%= f.time_field :pickup_time,
+                    class: "form-control #{'is-invalid' if @booking.errors[:pickup_time].any?}",
+                    required: true %>
+
+              <% @booking.errors.full_messages_for(:pickup_time).each do |msg| %>
+                <div class="invalid-feedback d-block">
+                  <%= msg %>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <%= f.label :return_date %>
+
+              <%= f.date_field :return_date,
+                    class: "form-control #{'is-invalid' if @booking.errors[:return_date].any?}",
+                    required: true %>
+
+              <% @booking.errors.full_messages_for(:return_date).each do |msg| %>
+                <div class="invalid-feedback d-block">
+                  <%= msg %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <%= f.label :return_time %>
+
+              <%= f.time_field :return_time,
+                    class: "form-control #{'is-invalid' if @booking.errors[:return_time].any?}",
+                    required: true %>
+
+              <% @booking.errors.full_messages_for(:return_time).each do |msg| %>
+                <div class="invalid-feedback d-block">
+                  <%= msg %>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+          <%= f.submit "Continue",
+                class: "btn btn-primary btn-lg px-4" %>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
+
+    <div class="card shadow-sm border-0">
+
+      <div class="card-header bg-white">
+        Booking Summary
+      </div>
+
+      <div class="card-body">
+
+        <h5 class="fw-bold">
+          <%= @vehicle.vehicle_brand.name %>
+          <%= @vehicle.model %>
+        </h5>
+
+        <hr>
+
+        <div class="d-flex justify-content-between mb-2">
+          <span>Daily Rate</span>
+          <strong>₹<%= @vehicle.daily_rate %></strong>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <span>Security Deposit</span>
+          <strong>₹<%= @vehicle.security_deposit %></strong>
+        </div>
+
+        <hr>
+
+        <small class="text-muted">
+          Final amount will be calculated automatically after selecting the rental period.
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

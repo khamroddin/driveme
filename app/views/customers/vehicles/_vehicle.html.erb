@@ -1,0 +1,75 @@
+<div class="col-lg-4 col-md-6 mb-4">
+
+  <div class="card h-100 shadow-sm">
+
+    <% if vehicle.thumbnail.attached? %>
+
+      <%= image_tag vehicle.thumbnail,
+            class: "card-img-top",
+            style: "height:220px;object-fit:cover;" %>
+
+    <% else %>
+
+      <div class="bg-light d-flex align-items-center justify-content-center"
+           style="height:220px;">
+        <i class="bi bi-car-front display-1 text-secondary"></i>
+      </div>
+
+    <% end %>
+
+    <div class="card-body">
+
+      <h5 class="fw-bold">
+        <%= vehicle.vehicle_brand.name %>
+        <%= vehicle.model %>
+      </h5>
+
+      <div class="text-muted small mb-2">
+        <%= vehicle.manufacture_year %>
+      </div>
+
+      <div class="mb-2">
+
+        <span class="badge bg-primary">
+          <%= vehicle.vehicle_category.name %>
+        </span>
+
+        <span class="badge bg-secondary">
+          <%= vehicle.transmission_type.name %>
+        </span>
+
+        <span class="badge bg-success">
+          <%= vehicle.fuel_type.name %>
+        </span>
+
+      </div>
+
+      <p class="mb-2">
+
+        <i class="bi bi-geo-alt"></i>
+
+        <%= vehicle.location.name %>
+
+      </p>
+
+      <h4 class="text-primary">
+
+        ₹<%= number_with_precision(vehicle.daily_rate, precision: 0) %>
+
+        <small class="text-muted fs-6">/day</small>
+
+      </h4>
+
+    </div>
+
+    <div class="card-footer bg-white border-0">
+
+      <%= link_to "View Details",
+            customers_vehicle_path(vehicle),
+            class: "btn btn-primary w-100" %>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,228 @@
+<%
+masters = [
+  ["Vehicle Categories", admin_vehicle_categories_path, "vehicle_categories"],
+  ["Brands", admin_vehicle_brands_path, "vehicle_brands"],
+  ["Fuel Types", admin_fuel_types_path, "fuel_types"],
+  ["Transmission Types", admin_transmission_types_path, "transmission_types"],
+  ["Vehicle Colors", admin_vehicle_colors_path, "vehicle_colors"],
+  ["Locations", admin_locations_path, "locations"],
+  ["Amenities", admin_amenities_path, "amenities"]
+]
+
+fleet = [
+  ["Vehicles", admin_vehicles_path, "vehicles"],
+  ["Bookings", admin_bookings_path, "bookings"],
+  ["Availability", "#", nil],
+  ["Maintenance", "#", nil]
+]
+users = [
+  ["Customers", admin_customers_path, "customers"]
+]
+
+users_controllers = users.map(&:last)
+masters_controllers = masters.map(&:last)
+fleet_controllers = fleet.map(&:last).compact
+%>
+
+<div class="sidebar-wrapper d-flex flex-column">
+
+  <!-- Logo -->
+  <div class="logo px-4">
+    <%= link_to admin_dashboard_path,
+        class: "text-decoration-none text-white d-flex align-items-center" do %>
+
+      <i class="bi bi-car-front-fill fs-3 me-2"></i>
+
+      <div>
+        <div class="fw-bold fs-4">DriveMe</div>
+        <small class="text-white-50">Car  ERP</small>
+      </div>
+
+    <% end %>
+  </div>
+
+  <!-- Navigation -->
+  <ul class="nav flex-column mt-3">
+
+    <!-- Dashboard -->
+    <li class="nav-item">
+      <%= link_to admin_dashboard_path,
+          class: "nav-link #{'active' if controller_name == 'dashboard'}" do %>
+
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+
+      <% end %>
+    </li>
+
+    <!-- Masters -->
+    <li class="nav-item">
+
+      <a class="nav-link d-flex justify-content-between align-items-center"
+         data-bs-toggle="collapse"
+         href="#mastersMenu"
+         role="button">
+
+        <span>
+          <i class="bi bi-folder2-open"></i>
+          Masters
+        </span>
+
+        <i class="bi bi-chevron-down small"></i>
+
+      </a>
+
+      <div class="collapse <%= 'show' if masters_controllers.include?(controller_name) %>"
+           id="mastersMenu">
+
+        <ul class="nav flex-column submenu">
+
+          <% masters.each do |title, path, controller| %>
+
+            <li>
+
+              <%= link_to path,
+                  class: "nav-link #{'active' if controller_name == controller}" do %>
+
+                <i class="bi bi-dot"></i>
+                <%= title %>
+
+              <% end %>
+
+            </li>
+
+          <% end %>
+
+        </ul>
+
+      </div>
+
+    </li>
+
+    <!-- Fleet -->
+<!-- Fleet -->
+<li class="nav-item">
+
+  <a class="nav-link d-flex justify-content-between align-items-center"
+     data-bs-toggle="collapse"
+     href="#fleetMenu"
+     role="button">
+
+    <span>
+      <i class="bi bi-car-front"></i>
+      Fleet
+    </span>
+
+    <i class="bi bi-chevron-down small"></i>
+
+  </a>
+
+  <div class="collapse <%= 'show' if fleet_controllers.include?(controller_name) %>"
+       id="fleetMenu">
+
+    <ul class="nav flex-column submenu">
+
+      <% fleet.each do |title, path, controller| %>
+
+        <li>
+
+          <% if path == "#" %>
+
+            <%= link_to "#", class: "nav-link disabled" do %>
+              <i class="bi bi-dot"></i>
+              <%= title %>
+            <% end %>
+
+          <% else %>
+
+            <%= link_to path,
+                class: "nav-link #{'active' if controller_name == controller}" do %>
+
+              <i class="bi bi-dot"></i>
+              <%= title %>
+
+            <% end %>
+
+          <% end %>
+
+        </li>
+
+      <% end %>
+
+    </ul>
+
+  </div>
+
+</li>
+
+   
+
+<!-- Users -->
+<li class="nav-item">
+
+  <a class="nav-link d-flex justify-content-between align-items-center"
+     data-bs-toggle="collapse"
+     href="#usersMenu"
+     role="button">
+
+    <span>
+      <i class="bi bi-people"></i>
+      Users
+    </span>
+
+    <i class="bi bi-chevron-down small"></i>
+
+  </a>
+
+  <div class="collapse <%= 'show' if users_controllers.include?(controller_name) %>"
+       id="usersMenu">
+
+    <ul class="nav flex-column submenu">
+
+      <% users.each do |title, path, controller| %>
+
+        <li>
+          <%= link_to path,
+              class: "nav-link #{'active' if controller_name == controller}" do %>
+
+            <i class="bi bi-dot"></i>
+            <%= title %>
+
+          <% end %>
+        </li>
+
+      <% end %>
+
+    </ul>
+
+  </div>
+
+</li>
+
+    <!-- Finance -->
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link" do %>
+        <i class="bi bi-credit-card"></i>
+        <span>Finance</span>
+      <% end %>
+    </li>
+
+    <!-- Reports -->
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link" do %>
+        <i class="bi bi-bar-chart"></i>
+        <span>Reports</span>
+      <% end %>
+    </li>
+
+    <!-- Settings -->
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link" do %>
+        <i class="bi bi-gear"></i>
+        <span>Settings</span>
+      <% end %>
+    </li>
+
+  </ul>
+
+</div>

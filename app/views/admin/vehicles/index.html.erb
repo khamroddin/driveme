@@ -1,0 +1,177 @@
+<%= render "admin/shared/page_title",
+      title: "Vehicles",
+      button_text: "New Vehicle",
+      new_path: new_admin_vehicle_path %>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+
+    <%= form_with url: admin_vehicles_path,
+                  method: :get,
+                  local: true do |f| %>
+
+      <div class="row">
+
+        <div class="col-md-3">
+          <%= f.text_field :search,
+                value: params[:search],
+                placeholder: "Registration / Model",
+                class: "form-control" %>
+        </div>
+
+        <div class="col-md-2">
+          <%= f.collection_select :brand,
+                VehicleBrand.active.order(:name),
+                :id,
+                :name,
+                { include_blank: "Brand" },
+                class: "form-select" %>
+        </div>
+
+        <div class="col-md-2">
+          <%= f.collection_select :category,
+                VehicleCategory.active.order(:name),
+                :id,
+                :name,
+                { include_blank: "Category" },
+                class: "form-select" %>
+        </div>
+
+        <div class="col-md-2">
+          <%= f.collection_select :location,
+                Location.active.order(:name),
+                :id,
+                :name,
+                { include_blank: "Location" },
+                class: "form-select" %>
+        </div>
+
+        <div class="col-md-2">
+          <%= f.select :status,
+                Vehicle.statuses.keys.map { |s| [s.titleize, s] },
+                { include_blank: "Status" },
+                class: "form-select" %>
+        </div>
+
+        <div class="col-md-1 d-grid">
+          <%= f.submit "Search", class: "btn btn-primary" %>
+        </div>
+
+      </div>
+
+      <div class="mt-2">
+        <%= link_to "Reset",
+              admin_vehicles_path,
+              class: "btn btn-outline-secondary btn-sm" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Vehicles</h2>
+
+  <span class="badge bg-primary fs-6">
+    Total: <%= @vehicles.count %>
+  </span>
+</div>
+    <table class="table table-hover align-middle">
+
+      <thead>
+        <tr>
+          <th>Registration</th>
+          <th>Vehicle</th>
+          <th>Category</th>
+          <th>Fuel</th>
+          <th>Location</th>
+          <th>Daily Rate</th>
+          <th>Status</th>
+           <th>Image</th>
+          <th width="150">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% @vehicles.each do |vehicle| %>
+
+          <tr>
+
+            <td>
+              <strong><%= vehicle.registration_number %></strong>
+            </td>
+
+            <td>
+              <%= vehicle.vehicle_brand.name %>
+              <br>
+
+              <small class="text-muted">
+                <%= vehicle.model %>
+                <%= vehicle.variant %>
+              </small>
+            </td>
+
+            <td><%= vehicle.vehicle_category.name %></td>
+
+            <td><%= vehicle.fuel_type.name %></td>
+
+            <td><%= vehicle.location.name %></td>
+
+            <td>
+              ₹ <%= number_with_precision(vehicle.daily_rate, precision: 2) %>
+            </td>
+
+           <td>
+  <% case vehicle.status
+     when "available" %>
+
+    <span class="badge bg-success">Available</span>
+
+  <% when "booked" %>
+
+    <span class="badge bg-primary">Booked</span>
+
+  <% when "maintenance" %>
+
+    <span class="badge bg-warning">Maintenance</span>
+
+  <% else %>
+
+    <span class="badge bg-secondary">Inactive</span>
+
+  <% end %>
+</td>
+<td>
+  <% if vehicle.thumbnail.attached? %>
+    <%= image_tag vehicle.thumbnail,
+          width: 70,
+          height: 50,
+          class: "rounded border" %>
+  <% else %>
+    <div class="bg-light border rounded d-flex align-items-center justify-content-center"
+         style="width:70px;height:50px;">
+      <i class="bi bi-car-front text-secondary"></i>
+    </div>
+  <% end %>
+</td>
+            <td>
+
+              <%= render "admin/shared/table_actions",
+                  edit_path: edit_admin_vehicle_path(vehicle),
+                  delete_path: admin_vehicle_path(vehicle) %>
+
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

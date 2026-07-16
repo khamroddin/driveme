@@ -1,0 +1,27 @@
+<% if controller_name != "sessions" %>
+  <p>
+    Already have an account?
+    <%= link_to "Sign In", new_session_path(resource_name) %>
+  </p>
+<% end %>
+
+<% if controller_name != "registrations" %>
+  <p>
+    New customer?
+    <%= link_to "Create Account", new_registration_path(resource_name) %>
+  </p>
+<% end %>
+
+<% if controller_name != "passwords" && controller_name != "registrations" %>
+  <p>
+    <%= link_to "Forgot Password?", new_password_path(resource_name) %>
+  </p>
+<% end %>
+
+<hr>
+
+<p>
+  <%= link_to "Admin Login",
+      new_user_session_path,
+      class: "text-muted" %>
+</p>

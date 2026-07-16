@@ -1,0 +1,205 @@
+<div class="card shadow-sm">
+
+<div class="card-body">
+<% if @vehicle.errors.any? %>
+  <div class="alert alert-danger">
+    <h5>
+      <%= pluralize(@vehicle.errors.count, "error") %> prevented this vehicle from being saved.
+    </h5>
+
+    <ul class="mb-0">
+      <% @vehicle.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: [:admin,@vehicle] do |f| %>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+<%= f.label :registration_number %>
+<%= f.text_field :registration_number,class:"form-control" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :vehicle_brand %>
+<%= f.collection_select :vehicle_brand_id,
+      VehicleBrand.active,
+      :id,
+      :name,
+      {},
+      class:"form-select" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :vehicle_category %>
+<%= f.collection_select :vehicle_category_id,
+      VehicleCategory.active,
+      :id,
+      :name,
+      {},
+      class:"form-select" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :fuel_type %>
+<%= f.collection_select :fuel_type_id,
+      FuelType.active,
+      :id,
+      :name,
+      {},
+      class:"form-select" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :transmission_type %>
+<%= f.collection_select :transmission_type_id,
+      TransmissionType.active,
+      :id,
+      :name,
+      {},
+      class:"form-select" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :vehicle_color %>
+<%= f.collection_select :vehicle_color_id,
+      VehicleColor.active,
+      :id,
+      :name,
+      {},
+      class:"form-select" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :location %>
+<%= f.collection_select :location_id,
+      Location.active,
+      :id,
+      :name,
+      {},
+      class:"form-select" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :model %>
+<%= f.text_field :model,class:"form-control" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :variant %>
+<%= f.text_field :variant,class:"form-control" %>
+</div>
+
+<div class="col-md-3 mb-3">
+<%= f.label :manufacture_year %>
+<%= f.number_field :manufacture_year,class:"form-control" %>
+</div>
+
+<div class="col-md-3 mb-3">
+<%= f.label :seating_capacity %>
+<%= f.number_field :seating_capacity,class:"form-control" %>
+</div>
+
+<div class="col-md-3 mb-3">
+<%= f.label :doors %>
+<%= f.number_field :doors,class:"form-control" %>
+</div>
+
+<div class="col-md-3 mb-3">
+<%= f.label :mileage %>
+<%= f.number_field :mileage,class:"form-control" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :engine_capacity %>
+<%= f.text_field :engine_capacity,class:"form-control" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :daily_rate %>
+<%= f.number_field :daily_rate,step:0.01,class:"form-control" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :security_deposit %>
+<%= f.number_field :security_deposit,step:0.01,class:"form-control" %>
+</div>
+
+<div class="col-md-12 mb-3">
+<%= f.label :description %>
+<%= f.text_area :description,
+      rows:4,
+      class:"form-control" %>
+</div>
+
+<div class="col-md-4 mb-3">
+<%= f.label :status %>
+<%= f.select :status,
+      Vehicle.statuses.keys.map{|s|[s.titleize,s]},
+      {},
+      class:"form-select" %>
+</div>
+
+</div>
+<hr>
+
+<h5 class="mb-3">Vehicle Images</h5>
+
+<div class="row">
+
+  <div class="col-md-6 mb-3">
+  <%= f.label :thumbnail, class: "form-label" %>
+
+  <%= f.file_field :thumbnail,
+        class: "form-control",
+        accept: "image/*" %>
+
+  <% if @vehicle.persisted? %>
+    <% if @vehicle.thumbnail.attached? %>
+      <div class="mt-2">
+        <%= image_tag url_for(@vehicle.thumbnail),
+              width: 120,
+              class: "img-thumbnail" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+  <div class="col-md-6 mb-3">
+  <%= f.label :gallery, class: "form-label" %>
+
+  <%= f.file_field :gallery,
+        multiple: true,
+        class: "form-control",
+        accept: "image/*" %>
+
+  <% if @vehicle.persisted? %>
+    <% if @vehicle.gallery.attached? %>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <% @vehicle.gallery.each do |image| %>
+          <%= image_tag url_for(image),
+                width: 100,
+                class: "img-thumbnail" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+</div>
+<hr>
+
+<%= f.submit class:"btn btn-primary" %>
+
+<%= link_to "Cancel",
+      admin_vehicles_path,
+      class:"btn btn-secondary" %>
+
+<% end %>
+
+</div>
+
+</div>

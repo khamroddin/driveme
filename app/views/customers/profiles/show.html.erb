@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+  <div>
+    <h2>My Profile</h2>
+    <p class="text-muted mb-0">
+      View your personal information.
+    </p>
+  </div>
+
+  <%= link_to "Edit Profile",
+        edit_customers_profile_path,
+        class: "btn btn-primary" %>
+
+</div>
+
+<div class="card border-0 shadow-sm">
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <strong>First Name</strong>
+        <p><%= @customer.first_name %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Last Name</strong>
+        <p><%= @customer.last_name %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Email</strong>
+        <p><%= @customer.email %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Mobile</strong>
+        <p><%= @customer.mobile %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Alternate Mobile</strong>
+        <p><%= @customer.alternate_mobile.presence || "-" %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Driving Licence</strong>
+        <p><%= @customer.driving_license_no.presence || "-" %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Licence Expiry</strong>
+        <p><%= @customer.license_expiry || "-" %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>ID Proof</strong>
+        <p><%= @customer.id_proof_type.presence || "-" %></p>
+      </div>
+
+      <div class="col-12 mb-3">
+        <strong>Address</strong>
+        <p><%= @customer.address.presence || "-" %></p>
+      </div>
+
+      <div class="col-md-4">
+        <strong>City</strong>
+        <p><%= @customer.city.presence || "-" %></p>
+      </div>
+
+      <div class="col-md-4">
+        <strong>State</strong>
+        <p><%= @customer.state.presence || "-" %></p>
+      </div>
+
+      <div class="col-md-4">
+        <strong>Country</strong>
+        <p><%= @customer.country.presence || "-" %></p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

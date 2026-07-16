@@ -1,0 +1,28 @@
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+/* Shared */
+@import "shared/variables";
+
+/* Authentication */
+@import "auth/layout";
+@import "auth/auth";
+
+/* Admin */
+@import "admin/variables";
+@import "admin/layout";
+@import "admin/sidebar";
+@import "admin/navbar";
+@import "admin/cards";
+@import "admin/tables";
+@import "admin/forms";
+
+/* Customer */
+@import "customer/variables";
+@import "customer/layout";
+@import "customer/sidebar";
+@import "customer/topbar";
+@import "customer/cards";
+@import "customer/tables";
+@import "customer/forms";
+@import "customer/navbar";

@@ -1,0 +1,39 @@
+<%= form_with model: [:admin, @amenity] do |f| %>
+
+  <% if @amenity.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @amenity.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description %>
+    <%= f.text_area :description,
+                    rows: 3,
+                    class: "form-control" %>
+  </div>
+
+  <div class="form-check mb-3">
+    <%= f.check_box :active,
+                    class: "form-check-input" %>
+
+    <%= f.label :active,
+                class: "form-check-label" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+
+  <%= link_to "Cancel",
+      admin_amenities_path,
+      class: "btn btn-secondary" %>
+
+<% end %>

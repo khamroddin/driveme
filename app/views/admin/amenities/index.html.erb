@@ -1,0 +1,44 @@
+<%= render "admin/shared/page_title",
+           title: "Amenities",
+           button_text: "New Amenity",
+           new_path: new_admin_amenity_path %>
+
+<table class="table table-hover">
+
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th width="140">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @amenities.each do |amenity| %>
+
+      <tr>
+
+        <td><%= amenity.name %></td>
+
+        <td><%= amenity.description %></td>
+
+        <td>
+          <%= render "admin/shared/status_badge",
+                active: amenity.active? %>
+        </td>
+
+        <td>
+          <%= render "admin/shared/table_actions",
+                edit_path: edit_admin_amenity_path(amenity),
+                delete_path: admin_amenity_path(amenity) %>
+        </td>
+
+      </tr>
+
+    <% end %>
+
+  </tbody>
+
+</table>

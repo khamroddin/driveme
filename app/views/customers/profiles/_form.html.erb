@@ -1,0 +1,107 @@
+<%= form_with model: @customer,
+              url: customers_profile_path,
+              method: :patch,
+              local: true do |f| %>
+
+  <div class="card border-0 shadow-sm">
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :mobile %>
+          <%= f.telephone_field :mobile, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :alternate_mobile %>
+          <%= f.telephone_field :alternate_mobile, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :driving_license_no %>
+          <%= f.text_field :driving_license_no, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :license_expiry %>
+          <%= f.date_field :license_expiry, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :id_proof_type %>
+          <%= f.select :id_proof_type,
+                ["Aadhaar", "Passport", "Driving Licence", "PAN"],
+                { include_blank: "Select" },
+                class: "form-select" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :id_proof_number %>
+          <%= f.text_field :id_proof_number, class: "form-control" %>
+        </div>
+
+        <div class="col-12 mb-3">
+          <%= f.label :address %>
+          <%= f.text_area :address, rows: 3, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :city %>
+          <%= f.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :state %>
+          <%= f.text_field :state, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :country %>
+          <%= f.text_field :country, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :pincode %>
+          <%= f.text_field :pincode, class: "form-control" %>
+        </div>
+
+        <div class="col-12 mb-3">
+          <%= f.label :notes %>
+          <%= f.text_area :notes, rows: 3, class: "form-control" %>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card-footer bg-white d-flex justify-content-between">
+
+      <%= link_to "Back",
+            customers_profile_path,
+            class: "btn btn-outline-secondary" %>
+
+      <%= f.submit "Update Profile",
+            class: "btn btn-primary" %>
+
+    </div>
+
+  </div>
+
+<% end %>

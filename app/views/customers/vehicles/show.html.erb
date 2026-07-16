@@ -1,0 +1,220 @@
+<div class="row g-4">
+
+  <!-- Left Column -->
+  <div class="col-lg-6">
+
+    <% if @vehicle.thumbnail.attached? %>
+
+      <%= image_tag @vehicle.thumbnail,
+            class: "img-fluid rounded shadow",
+            style: "width:100%;height:430px;object-fit:cover;" %>
+
+    <% else %>
+
+      <div class="bg-light rounded shadow d-flex align-items-center justify-content-center"
+           style="height:430px;">
+        <i class="bi bi-car-front display-1 text-secondary"></i>
+      </div>
+
+    <% end %>
+
+    <% if @vehicle.gallery.attached? %>
+
+      <div class="row mt-3">
+
+        <% @vehicle.gallery.each do |image| %>
+
+          <div class="col-3">
+
+            <%= image_tag image,
+                  class: "img-fluid rounded shadow-sm",
+                  style: "height:90px;width:100%;object-fit:cover;" %>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <!-- Right Column -->
+  <div class="col-lg-6">
+
+    <h1 class="fw-bold mb-1">
+      <%= @vehicle.vehicle_brand.name %>
+      <%= @vehicle.model %>
+    </h1>
+
+    <p class="text-muted mb-3">
+      <%= @vehicle.manufacture_year %>
+    </p>
+
+    <div class="mb-4">
+
+      <span class="badge bg-primary">
+        <%= @vehicle.vehicle_category.name %>
+      </span>
+
+      <span class="badge bg-success">
+        <%= @vehicle.fuel_type.name %>
+      </span>
+
+      <span class="badge bg-secondary">
+        <%= @vehicle.transmission_type.name %>
+      </span>
+
+    </div>
+
+    <% badge =
+      case @vehicle.status
+      when "available"
+        "success"
+      when "booked"
+        "danger"
+      when "maintenance"
+        "warning text-dark"
+      else
+        "secondary"
+      end
+    %>
+
+    <!-- Vehicle Specifications -->
+    <div class="card border-0 shadow-sm mb-4">
+
+      <div class="card-header bg-white">
+        <strong>Vehicle Specifications</strong>
+      </div>
+
+      <table class="table table-striped mb-0">
+
+        <tr>
+          <th width="45%">Registration No.</th>
+          <td><%= @vehicle.registration_number %></td>
+        </tr>
+
+        <tr>
+          <th>Color</th>
+          <td><%= @vehicle.vehicle_color.name %></td>
+        </tr>
+
+        <tr>
+          <th>Location</th>
+          <td><%= @vehicle.location.name %></td>
+        </tr>
+
+        <tr>
+          <th>Status</th>
+
+          <td>
+            <span class="badge bg-<%= badge %>">
+              <%= @vehicle.status.titleize %>
+            </span>
+          </td>
+
+        </tr>
+
+      </table>
+
+    </div>
+
+    <!-- Pricing -->
+    <div class="card border-0 shadow-sm">
+
+      <div class="card-body">
+
+        <small class="text-muted text-uppercase">
+          Rental Price
+        </small>
+
+        <h2 class="text-primary fw-bold mt-2 mb-4">
+          ₹<%= number_with_precision(@vehicle.daily_rate, precision: 0) %>
+          <small class="text-dark fs-5">/ Day</small>
+        </h2>
+
+        <% if @vehicle.weekly_rate.present? %>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Weekly</span>
+
+            <strong>
+              ₹<%= number_with_precision(@vehicle.weekly_rate, precision: 0) %>
+            </strong>
+          </div>
+
+        <% end %>
+
+        <% if @vehicle.monthly_rate.present? %>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Monthly</span>
+
+            <strong>
+              ₹<%= number_with_precision(@vehicle.monthly_rate, precision: 0) %>
+            </strong>
+          </div>
+
+        <% end %>
+
+        <% if @vehicle.security_deposit.present? %>
+
+          <div class="d-flex justify-content-between mb-4">
+            <span>Security Deposit</span>
+
+            <strong>
+              ₹<%= number_with_precision(@vehicle.security_deposit, precision: 0) %>
+            </strong>
+          </div>
+
+        <% end %>
+
+        <div class="d-grid">
+
+  <%= link_to new_customers_booking_path(vehicle_id: @vehicle.id),
+        class: "btn btn-primary btn-lg" do %>
+
+    <i class="bi bi-calendar-check me-2"></i>
+
+    Book This Vehicle
+
+  <% end %>
+
+</div>
+      </div>
+
+    </div>
+
+    <!-- Description -->
+    <div class="card border-0 shadow-sm mt-4">
+
+      <div class="card-header bg-white">
+        <strong>About this Vehicle</strong>
+      </div>
+
+      <div class="card-body">
+
+        <%= @vehicle.description.presence ||
+            "Comfortable, well-maintained vehicle ideal for city driving and long-distance travel. Regularly serviced and sanitized for every booking." %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="mt-4">
+
+  <%= link_to customers_vehicles_path,
+        class: "btn btn-outline-secondary" do %>
+
+    <i class="bi bi-arrow-left"></i>
+
+    Back to Vehicles
+
+  <% end %>
+
+</div>

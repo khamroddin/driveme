@@ -1,0 +1,99 @@
+<div class="auth-container">
+
+  <div class="auth-card">
+
+    <div class="text-center mb-4">
+
+      <i class="bi bi-car-front-fill display-5 text-primary"></i>
+
+      <h1 class="fw-bold mt-2">DriveMe</h1>
+
+      <p class="text-muted">
+        Create Your Customer Account
+      </p>
+
+    </div>
+
+    <%= form_for(resource,
+                 as: resource_name,
+                 url: registration_path(resource_name)) do |f| %>
+
+      <%= render "customers/shared/error_messages",
+                 resource: resource %>
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+
+          <%= f.label :first_name %>
+
+          <%= f.text_field :first_name,
+                autofocus: true,
+                class: "form-control" %>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+          <%= f.label :last_name %>
+
+          <%= f.text_field :last_name,
+                class: "form-control" %>
+
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+
+        <%= f.label :mobile %>
+
+        <%= f.telephone_field :mobile,
+              class: "form-control" %>
+
+      </div>
+
+      <div class="mb-3">
+
+        <%= f.label :email %>
+
+        <%= f.email_field :email,
+              autocomplete: "email",
+              class: "form-control" %>
+
+      </div>
+
+      <div class="mb-3">
+
+        <%= f.label :password %>
+
+        <%= f.password_field :password,
+              autocomplete: "new-password",
+              class: "form-control" %>
+
+      </div>
+
+      <div class="mb-4">
+
+        <%= f.label :password_confirmation %>
+
+        <%= f.password_field :password_confirmation,
+              autocomplete: "new-password",
+              class: "form-control" %>
+
+      </div>
+
+      <%= f.submit "Create Account",
+            class: "btn btn-primary w-100" %>
+
+    <% end %>
+
+    <div class="text-center mt-4">
+
+      <%= render "customers/shared/links" %>
+
+    </div>
+
+  </div>
+
+</div>

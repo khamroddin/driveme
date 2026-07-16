@@ -1,0 +1,122 @@
+<div class="row">
+
+  <div class="col-lg-8">
+
+    <div class="card shadow-sm border-0">
+
+      <div class="card-header bg-success text-white">
+        <h4 class="mb-0">
+          Booking Submitted Successfully
+        </h4>
+      </div>
+
+      <div class="card-body">
+
+        <table class="table">
+
+          <tr>
+            <th>Booking No.</th>
+            <td>
+              <%= @booking.booking_number %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Vehicle</th>
+            <td>
+              <%= @booking.vehicle.vehicle_brand.name %>
+              <%= @booking.vehicle.model %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Pickup</th>
+            <td>
+              <%= @booking.pickup_date.strftime("%d %b %Y") %>
+              <%= @booking.pickup_time.strftime("%I:%M %p") if @booking.pickup_time.present? %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Return</th>
+            <td>
+              <%= @booking.return_date.strftime("%d %b %Y") %>
+              <%= @booking.return_time.strftime("%I:%M %p") if @booking.return_time.present? %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Rental Days</th>
+            <td>
+              <%= @booking.days %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Status</th>
+            <td>
+              <span class="badge bg-warning text-dark">
+                <%= @booking.status.titleize %>
+              </span>
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
+
+    <div class="card shadow-sm">
+
+      <div class="card-header">
+        Charges
+      </div>
+
+      <div class="card-body">
+
+        <p class="d-flex justify-content-between">
+          <span>Rental</span>
+          <strong>
+            ₹<%= number_with_precision(@booking.subtotal, precision: 0) %>
+          </strong>
+        </p>
+
+        <p class="d-flex justify-content-between">
+          <span>Security Deposit</span>
+          <strong>
+            ₹<%= number_with_precision(@booking.security_deposit, precision: 0) %>
+          </strong>
+        </p>
+
+        <hr>
+
+        <h4 class="d-flex justify-content-between text-primary">
+
+          <span>Total</span>
+
+          <span>
+            ₹<%= number_with_precision(@booking.total_amount, precision: 0) %>
+          </span>
+
+        </h4>
+
+      </div>
+
+    </div>
+
+    <div class="d-grid mt-3">
+
+      <%= link_to "My Bookings",
+            customers_bookings_path,
+            class: "btn btn-primary" %>
+
+    </div>
+
+  </div>
+
+</div>

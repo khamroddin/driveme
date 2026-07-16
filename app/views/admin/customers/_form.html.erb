@@ -1,0 +1,133 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+
+    <%= form_with(model: [:admin, @customer], local: true) do |f| %>
+
+      <% if @customer.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @customer.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h5 class="mb-3">Personal Information</h5>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :mobile %>
+          <%= f.telephone_field :mobile, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :alternate_mobile %>
+          <%= f.telephone_field :alternate_mobile, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+      </div>
+
+      <hr>
+
+      <h5 class="mb-3">Driving License</h5>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :driving_license_no %>
+          <%= f.text_field :driving_license_no, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :license_expiry %>
+          <%= f.date_field :license_expiry, class: "form-control" %>
+        </div>
+      </div>
+
+      <hr>
+
+      <h5 class="mb-3">Identity Proof</h5>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :id_proof_type %>
+          <%= f.select :id_proof_type,
+              ["Aadhaar", "Passport", "Driving License", "National ID"],
+              { include_blank: "Select" },
+              class: "form-select" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :id_proof_number %>
+          <%= f.text_field :id_proof_number, class: "form-control" %>
+        </div>
+      </div>
+
+      <hr>
+
+      <h5 class="mb-3">Address</h5>
+
+      <div class="row">
+        <div class="col-12 mb-3">
+          <%= f.label :address %>
+          <%= f.text_area :address, rows: 3, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :city %>
+          <%= f.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :state %>
+          <%= f.text_field :state, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :country %>
+          <%= f.text_field :country, class: "form-control" %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= f.label :pincode %>
+          <%= f.text_field :pincode, class: "form-control" %>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-8 mb-3">
+          <%= f.label :notes %>
+          <%= f.text_area :notes, rows: 3, class: "form-control" %>
+        </div>
+
+        <div class="col-md-4 mb-3 d-flex align-items-center">
+          <div class="form-check mt-4">
+            <%= f.check_box :status, class: "form-check-input" %>
+            <%= f.label :status, "Active", class: "form-check-label" %>
+          </div>
+        </div>
+      </div>
+
+      <%= f.submit class: "btn btn-primary" %>
+      <%= link_to "Cancel", admin_customers_path, class: "btn btn-secondary" %>
+
+    <% end %>
+
+  </div>
+</div>
