@@ -21,12 +21,8 @@ VehicleCategory.destroy_all
 User.where.not(email: "admin@driveme.com").destroy_all
 
 User.find_or_create_by!(email: "admin@driveme.com") do |user|
-  user.first_name = "System"
-  user.last_name  = "Administrator"
-
   user.password = "Admin@123"
   user.password_confirmation = "Admin@123"
-
   user.role = "super_admin"
 end
 
