@@ -20,11 +20,13 @@ VehicleCategory.destroy_all
 
 User.where.not(email: "admin@driveme.com").destroy_all
 
-User.find_or_create_by!(email: "admin@driveme.com") do |user|
-  user.password = "Admin@123"
-  user.password_confirmation = "Admin@123"
-  user.role = "super_admin"
-end
+admin = User.find_or_initialize_by(email: "admin@driveme.com")
+
+admin.password = "Admin@123"
+admin.password_confirmation = "Admin@123"
+admin.role = "super_admin"
+
+admin.save!
 
 [
   { name: "Toyota", country: "Japan", status: true },
