@@ -497,3 +497,9 @@ customers.each do |customer|
 
   c.save!
 end
+puts "======================================"
+puts "SEEDS COMPLETED"
+puts "Users: #{User.count}"
+puts "Vehicles: #{Vehicle.count}"
+puts "Customers: #{Customer.count}"
+puts "======================================"
