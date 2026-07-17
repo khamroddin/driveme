@@ -1,6 +1,9 @@
 # -----------------------------
 # Clear transactional data first
 # -----------------------------
+puts "========== RUNNING SEEDS =========="
+
+
 
 Booking.destroy_all
 
