@@ -56,3 +56,4 @@ end
 
 gem "devise", "~> 5.0"
 gem "friendly_id", "~> 5.5"
+gem "image_processing", "~> 1.2"
